@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UAS Teori Bahasa dan Automata</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e3a5f;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #1e3a5f;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #b3d9e8;
+            border-radius: 4px;
+            background-color: #e8f4f8;
+            font-size: 14px;
+            color: #333333;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #4ba3c3;
+            background-color: #d4e9f2;
+            box-shadow: 0 0 5px rgba(75, 163, 195, 0.2);
+        }
+
+        input[type="text"]::placeholder {
+            color: #888888;
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%231e3a5f' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 35px;
+        }
+
+        option {
+            color: #333333;
+            background-color: #ffffff;
+            padding: 8px;
+        }
+
+        .info-section {
+            margin-top: 30px;
+        }
+
+        .info-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #1e3a5f;
+            font-weight: 5;
+            font-size: 14px;
+        }
+
+        .info-box {
+            background-color: #e8f4f8;
+            border: 1px solid #b3d9e8;
+            border-radius: 4px;
+            padding: 20px;
+            min-height: 200px;
+            color: #555555;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .info-box:empty::before {
+            content: "Deskripsi akan ditampilkan di sini...";
+            color: #999999;
+        }
+
+        .media-container {
+            margin-top: 15px;
+        }
+
+        .media-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            border: 1px solid #b3d9e8;
+        }
+
+        .media-container video {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            border: 1px solid #b3d9e8;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 25px;
+            background-color: #4ba3c3;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #3a8aad;
+            box-shadow: 0 2px 8px rgba(75, 163, 195, 0.3);
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        .form-divider {
+            height: 1px;
+            background-color: #d9e8f0;
+            margin: 30px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>UAS TEORI BAHASA DAN AUTOMATA</h1>
+
+        <form id="automataForm">
+            <!-- Input Karakter -->
+            <div class="form-group">
+                <label for="karakter">Masukkan Karakter</label>
+                <input 
+                    type="text" 
+                    id="karakter" 
+                    name="karakter" 
+                    placeholder="Ketik karakter di sini..."
+                    maxlength="1"
+                >
+            </div>
+
+            <!-- Kata Dasar -->
+            <div class="form-group">
+                <label for="kataDasar">Kata Dasar</label>
+                <select id="kataDasar" name="kataDasar">
+                    <option value="">-- Pilih Kata Dasar --</option>
+                    <option value="kata1">Kata 1</option>
+                    <option value="kata2">Kata 2</option>
+                    <option value="kata3">Kata 3</option>
+                    <option value="kata4">Kata 4</option>
+                    <option value="kata5">Kata 5</option>
+                </select>
+            </div>
+
+            <!-- Kalimat -->
+            <div class="form-group">
+                <label for="kalimat">Kalimat</label>
+                <select id="kalimat" name="kalimat">
+                    <option value="">-- Pilih Kalimat --</option>
+                    <option value="kalimat1">Kalimat 1</option>
+                    <option value="kalimat2">Kalimat 2</option>
+                    <option value="kalimat3">Kalimat 3</option>
+                    <option value="kalimat4">Kalimat 4</option>
+                    <option value="kalimat5">Kalimat 5</option>
+                </select>
+            </div>
+
+            <div class="form-divider"></div>
+
+            <!-- Informasi -->
+            <div class="info-section">
+                <label class="info-label">Informasi</label>
+                <div class="info-box" id="infoBox">
+                    <!-- Konten deskripsi, gambar, dan video akan ditampilkan di sini -->
+                </div>
+                <div class="media-container" id="mediaContainer">
+                    <!-- Gambar dan video akan ditampilkan di sini -->
+                </div>
+            </div>
+
+            <!-- Tombol Submit -->
+            <button type="submit">Proses</button>
+        </form>
+    </div>
+
+    <script>
+        // ===== EVENT LISTENERS & LOGIKA INTERAKTIF =====
+        
+        const inputKarakter = document.getElementById('karakter');
+        const selectKataDasar = document.getElementById('kataDasar');
+        const selectKalimat = document.getElementById('kalimat');
+        const infoBox = document.getElementById('infoBox');
+        const mediaContainer = document.getElementById('mediaContainer');
+        
+        // Event listener untuk input karakter
+        inputKarakter.addEventListener('input', function(e) {
+            const karakter = e.target.value.toUpperCase();
+            
+            // Reset dropdown dan info jika input kosong
+            if (karakter === '') {
+                resetForm();
+                return;
+            }
+            
+            // Jika karakter adalah 'N', isi dropdown Kata Dasar
+            if (karakter === 'N') {
+                populateKataDasarDropdown();
+            } else {
+                resetForm();
+                infoBox.innerHTML = '<p style="color: #999;">Silakan masukkan karakter "N" atau "n"</p>';
+            }
+        });
+        
+        // Event listener untuk dropdown Kata Dasar
+        selectKataDasar.addEventListener('change', function(e) {
+            selectKalimat.innerHTML = '<option value="">-- Pilih Kalimat --</option>';
+            infoBox.innerHTML = '';
+            mediaContainer.innerHTML = '';
+            
+            const selectedKataDasarId = e.target.value;
+            
+            if (selectedKataDasarId === '') {
+                return;
+            }
+            
+            // Cari kata dasar yang dipilih dari database
+            const kataDasarObj = database.kataDasar.find(kata => kata.id === selectedKataDasarId);
+            
+            if (kataDasarObj) {
+                populateKalimatDropdown(kataDasarObj.kalimat);
+            }
+        });
+        
+        // Event listener untuk dropdown Kalimat
+        selectKalimat.addEventListener('change', function(e) {
+            const selectedKalimatId = e.target.value;
+            
+            if (selectedKalimatId === '') {
+                infoBox.innerHTML = '';
+                mediaContainer.innerHTML = '';
+                return;
+            }
+            
+            // Cari kalimat yang dipilih
+            const kataDasarId = selectKataDasar.value;
+            const kataDasarObj = database.kataDasar.find(kata => kata.id === kataDasarId);
+            
+            if (kataDasarObj) {
+                const kalimatObj = kataDasarObj.kalimat.find(kal => kal.id === selectedKalimatId);
+                
+                if (kalimatObj) {
+                    displayInformation(kalimatObj);
+                }
+            }
+        });
+        
+        // ===== FUNGSI-FUNGSI PENDUKUNG =====
+        
+        /**
+         * Mengisi dropdown Kata Dasar dengan data dari database
+         */
+        function populateKataDasarDropdown() {
+            selectKataDasar.innerHTML = '<option value="">-- Pilih Kata Dasar --</option>';
+            selectKalimat.innerHTML = '<option value="">-- Pilih Kalimat --</option>';
+            infoBox.innerHTML = '';
+            mediaContainer.innerHTML = '';
+            
+            database.kataDasar.forEach(kata => {
+                const option = document.createElement('option');
+                option.value = kata.id;
+                option.textContent = kata.nama;
+                selectKataDasar.appendChild(option);
+            });
+        }
+        
+        /**
+         * Mengisi dropdown Kalimat dengan data kalimat dari kata dasar yang dipilih
+         * @param {Array} kalimatList - Array kalimat dari kata dasar
+         */
+        function populateKalimatDropdown(kalimatList) {
+            selectKalimat.innerHTML = '<option value="">-- Pilih Kalimat --</option>';
+            
+            kalimatList.forEach((kalimat, index) => {
+                const option = document.createElement('option');
+                option.value = kalimat.id;
+                option.textContent = `${index + 1}. ${kalimat.teks.substring(0, 50)}...`;
+                selectKalimat.appendChild(option);
+            });
+        }
+        
+        /**
+         * Menampilkan informasi (deskripsi, gambar, video) di kotak informasi
+         * @param {Object} kalimatObj - Objek kalimat yang berisi info
+         */
+        function displayInformation(kalimatObj) {
+            const info = kalimatObj.info;
+            
+            // Tampilkan deskripsi
+            infoBox.innerHTML = `
+                <div style="margin-bottom: 15px;">
+                    <strong style="color: #1e3a5f; font-size: 16px;">Kalimat:</strong><br>
+                    <p style="margin: 8px 0; color: #333; font-style: italic;">"${kalimatObj.teks}"</p>
+                </div>
+                
+                <div>
+                    <strong style="color: #1e3a5f; font-size: 16px;">Deskripsi:</strong><br>
+                    <p style="margin: 8px 0; text-align: justify; color: #555;">${info.deskripsi}</p>
+                </div>
+            `;
+            
+            // Tampilkan gambar dan video
+            mediaContainer.innerHTML = `
+                <div style="margin-top: 15px;">
+                    <strong style="color: #1e3a5f; font-size: 16px; display: block; margin-bottom: 10px;">Media:</strong>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <img src="${info.gambar}" alt="Gambar" style="width: 100%; height: auto; border-radius: 4px; border: 1px solid #b3d9e8;">
+                    </div>
+                    
+                    <div>
+                        <iframe width="100%" height="300" src="${info.video}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 4px; border: 1px solid #b3d9e8;"></iframe>
+                    </div>
+                </div>
+            `;
+        }
+        
+        /**
+         * Mereset form ke kondisi awal
+         */
+        function resetForm() {
+            selectKataDasar.innerHTML = '<option value="">-- Pilih Kata Dasar --</option>';
+            selectKalimat.innerHTML = '<option value="">-- Pilih Kalimat --</option>';
+            infoBox.innerHTML = '';
+            mediaContainer.innerHTML = '';
+        }
+    </script>
+
+    <script>
+        // Database Hierarki Teori Bahasa Automata - Karakter 'N'
+        const database = {
+            karakter: 'N',
+            kataDasar: [
+                {
+                    id: 'nasi',
+                    nama: 'NASI',
+                    kalimat: [
+                        {
+                            id: 'nasi_1',
+                            teks: 'Saya makan nasi putih setiap hari.',
+                            info: {
+                                deskripsi: 'Nasi adalah makanan pokok yang terbuat dari beras yang telah dimasak dengan air. Nasi mengandung karbohidrat tinggi dan merupakan sumber energi utama bagi masyarakat Asia. Nasi putih adalah jenis nasi yang paling umum dikonsumsi dan memiliki rasa yang netral, cocok untuk berbagai lauk pauk.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nasi+Putih',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nasi_2',
+                            teks: 'Nasi goreng adalah hidangan favorit di Indonesia.',
+                            info: {
+                                deskripsi: 'Nasi goreng merupakan olahan nasi yang dimasak kembali dengan bumbu-bumbu dan bahan pelengkap seperti telur, sayuran, dan daging. Hidangan ini memiliki rasa yang gurih dan pedas, serta mudah dibuat. Nasi goreng sering dijajakan di pinggir jalan dan menjadi makanan cepat saji yang populer.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nasi+Goreng',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nasi_3',
+                            teks: 'Bubur nasi adalah makanan ringan untuk sarapan.',
+                            info: {
+                                deskripsi: 'Bubur nasi adalah nasi yang dimasak dengan cairan lebih banyak sehingga teksturnya menjadi lembut dan mudah dicerna. Bubur nasi cocok untuk bayi, anak-anak, dan orang-orang yang sakit karena mudah dicerna. Bubur nasi dapat disajikan dengan berbagai topping seperti telur, asin, dan lauk pauk lainnya.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Bubur+Nasi',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nasi_4',
+                            teks: 'Nasi kuning dimasak dengan santan dan kunyit.',
+                            info: {
+                                deskripsi: 'Nasi kuning adalah nasi yang dimasak dengan santan, kunyit, dan rempah-rempah lainnya yang memberikan warna kuning dan aroma khas. Hidangan ini sering disajikan pada acara-acara khusus seperti pernikahan, khitanan, dan perayaan lainnya. Nasi kuning memiliki rasa yang gurih dan aroma yang harum dari rempah-rempahnya.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nasi+Kuning',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nasi_5',
+                            teks: 'Nasi uduk adalah hidangan tradisional dari Jakarta.',
+                            info: {
+                                deskripsi: 'Nasi uduk adalah nasi yang dimasak dengan santan, daun pandan, garam, dan gula yang memberikan rasa gurih dan wangi. Hidangan ini berasal dari Jakarta dan sering dijajakan di pagi hari sebagai sarapan. Nasi uduk biasanya disajikan dengan lauk pauk seperti telur, kacang, dan ikan teri.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nasi+Uduk',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        }
+                    ]
+                },
+                {
+                    id: 'nama',
+                    nama: 'NAMA',
+                    kalimat: [
+                        {
+                            id: 'nama_1',
+                            teks: 'Nama saya adalah Gary Andreas.',
+                            info: {
+                                deskripsi: 'Nama adalah identitas yang diberikan kepada seseorang untuk membedakannya dengan orang lain. Nama memiliki makna tersendiri dan sering kali dipilih dengan cermat oleh orang tua. Nama dapat terdiri dari satu kata atau lebih dan dapat berasal dari berbagai budaya dan bahasa.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nama+Identitas',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nama_2',
+                            teks: 'Nama kota ini adalah Pekanbaru.',
+                            info: {
+                                deskripsi: 'Nama adalah label yang diberikan kepada tempat atau benda untuk mengidentifikasinya. Setiap kota, desa, dan wilayah memiliki nama unik yang membedakannya dari tempat lain. Nama tempat sering kali memiliki arti historis atau budaya yang mendalam.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nama+Kota',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nama_3',
+                            teks: 'Apa nama hewan peliharaanmu?',
+                            info: {
+                                deskripsi: 'Pemberian nama pada hewan peliharaan menunjukkan kedekatan dan kasih sayang pemiliknya. Nama hewan peliharaan biasanya dipilih berdasarkan karakter, penampilan, atau kesukaaan pemiliknya. Nama yang baik untuk hewan peliharaan adalah nama yang mudah diingat dan diucapkan.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nama+Hewan',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nama_4',
+                            teks: 'Nama produk ini sangat menarik dan mudah diingat.',
+                            info: {
+                                deskripsi: 'Nama produk adalah identitas dari suatu barang atau layanan yang dipasarkan. Nama produk yang baik harus mudah diingat, menarik, dan mencerminkan kualitas atau fungsi produk tersebut. Penamaan produk merupakan strategi pemasaran penting untuk menarik perhatian konsumen.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nama+Produk',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nama_5',
+                            teks: 'Nama ilmiah makhluk hidup sangat penting dalam biologi.',
+                            info: {
+                                deskripsi: 'Nama ilmiah adalah istilah dalam bahasa Latin yang digunakan untuk mengidentifikasi makhluk hidup secara universal. Sistem penamaan ilmiah menggunakan dua bagian: genus dan spesies (sistem binomial). Nama ilmiah memastikan bahwa semua ilmuwan di dunia berbicara tentang organisme yang sama.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nama+Ilmiah',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        }
+                    ]
+                },
+                {
+                    id: 'nenek',
+                    nama: 'NENEK',
+                    kalimat: [
+                        {
+                            id: 'nenek_1',
+                            teks: 'Nenek saya tinggal di rumah yang besar di tepi sungai.',
+                            info: {
+                                deskripsi: 'Nenek adalah orangtua dari ayah atau ibu seseorang, juga dikenal sebagai kakek perempuan. Nenek memiliki peranan penting dalam keluarga sebagai penyimpan tradisi dan kebijaksanaan. Banyak nenek yang masih aktif membantu dalam mengasuh cucu dan membimbing generasi muda.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nenek',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nenek_2',
+                            teks: 'Nenek saya ahli dalam membuat kue tradisional.',
+                            info: {
+                                deskripsi: 'Banyak nenek yang memiliki keahlian khusus yang diwariskan dari generasi ke generasi. Keterampilan memasak, menenun, atau menjahit adalah beberapa keahlian tradisional yang sering diajarkan nenek kepada cucu-cucunya. Pengetahuan ini sangat berharga dalam melestarikan budaya lokal.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nenek+Memasak',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nenek_3',
+                            teks: 'Saya sering mendengarkan cerita dari nenek tentang zaman dahulu.',
+                            info: {
+                                deskripsi: 'Cerita dari nenek tentang masa lalu merupakan warisan budaya yang berharga. Kisah-kisah ini memberikan perspektif tentang sejarah keluarga dan masyarakat. Mendengarkan cerita nenek juga memperkuat hubungan antar generasi dalam keluarga.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Cerita+Nenek',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nenek_4',
+                            teks: 'Nenek saya selalu memberikan nasihat yang bijaksana.',
+                            info: {
+                                deskripsi: 'Pengalaman hidup yang panjang membuat nenek memiliki banyak nasihat berharga. Kebijaksanaan nenek dapat membantu cucu-cucu menghadapi tantangan dalam hidup. Peranan nenek sebagai pemberi nasihat sangat penting dalam membentuk karakter generasi muda.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nasihat+Nenek',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nenek_5',
+                            teks: 'Setiap akhir pekan saya berkunjung ke rumah nenek.',
+                            info: {
+                                deskripsi: 'Kunjungan rutin ke rumah nenek adalah tradisi yang memperkuat ikatan keluarga. Waktu yang dihabiskan bersama nenek memberikan kehangatan dan kasih sayang yang tak tergantikan. Momen-momen ini menciptakan kenangan indah yang akan diingat sepanjang hidup.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Kunjung+Nenek',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        }
+                    ]
+                },
+                {
+                    id: 'nilai',
+                    nama: 'NILAI',
+                    kalimat: [
+                        {
+                            id: 'nilai_1',
+                            teks: 'Nilai ujian saya adalah sembilan puluh delapan.',
+                            info: {
+                                deskripsi: 'Nilai adalah angka atau simbol yang diberikan untuk menunjukkan tingkat pencapaian atau prestasi seseorang dalam suatu bidang. Nilai akademik mencerminkan pemahaman dan penguasaan materi pelajaran. Nilai yang tinggi adalah hasil dari kerja keras, dedikasi, dan pembelajaran yang konsisten.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nilai+Akademik',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nilai_2',
+                            teks: 'Nilai-nilai moral adalah fondasi kehidupan yang baik.',
+                            info: {
+                                deskripsi: 'Nilai-nilai moral adalah prinsip-prinsip tentang apa yang benar dan salah yang dianut seseorang. Nilai-nilai ini membimbing perilaku dan keputusan dalam kehidupan sehari-hari. Nilai moral yang kuat membantu seseorang menjadi pribadi yang bertanggung jawab dan beretika.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nilai+Moral',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nilai_3',
+                            teks: 'Nilai investasi itu terus meningkat setiap tahunnya.',
+                            info: {
+                                deskripsi: 'Dalam bidang ekonomi, nilai merujuk pada harga atau kelayakan finansial dari suatu aset atau investasi. Nilai investasi yang meningkat menunjukkan bahwa investasi tersebut menguntungkan. Pemahaman tentang nilai aset penting untuk keputusan finansial yang bijaksana.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nilai+Investasi',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nilai_4',
+                            teks: 'Nilai budaya lokal harus dilestarikan untuk generasi mendatang.',
+                            info: {
+                                deskripsi: 'Nilai budaya adalah praktek, kepercayaan, dan tradisi yang menjadi ciri khas suatu masyarakat. Melestarikan nilai budaya penting untuk menjaga identitas dan warisan budaya. Nilai budaya juga membantu masyarakat memahami siapa mereka dan dari mana mereka berasal.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nilai+Budaya',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nilai_5',
+                            teks: 'Nilai tukar mata uang asing mengalami fluktuasi setiap hari.',
+                            info: {
+                                deskripsi: 'Nilai tukar adalah rasio perbandingan antara dua mata uang yang menunjukkan berapa banyak mata uang satu dapat ditukar dengan mata uang lainnya. Nilai tukar dipengaruhi oleh berbagai faktor ekonomi dan politik. Pemahaman tentang nilai tukar penting bagi pedagang dan investor internasional.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nilai+Tukar',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        }
+                    ]
+                },
+                {
+                    id: 'nomor',
+                    nama: 'NOMOR',
+                    kalimat: [
+                        {
+                            id: 'nomor_1',
+                            teks: 'Nomor telepon saya dimulai dengan kode area enam dua.',
+                            info: {
+                                deskripsi: 'Nomor telepon adalah rangkaian angka yang digunakan untuk mengidentifikasi dan menghubungi seseorang melalui jaringan telekomunikasi. Nomor telepon terdiri dari kode area dan nomor lokal. Setiap nomor telepon unik dan dapat digunakan untuk komunikasi dua arah.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nomor+Telepon',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nomor_2',
+                            teks: 'Nomor identitas penduduk adalah bukti resmi kebangsaan.',
+                            info: {
+                                deskripsi: 'Nomor identitas penduduk atau KTP adalah dokumen resmi yang dikeluarkan oleh pemerintah untuk mengidentifikasi warga negara. Nomor identitas ini unik untuk setiap individu dan digunakan dalam berbagai transaksi administrasi. Memiliki nomor identitas yang sah adalah hak dan kewajiban setiap warga negara.',
+                                gambar: 'https://via.placeholder.com/300x200?text=KTP',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nomor_3',
+                            teks: 'Nomor urut peserta lomba adalah tiga ratus dua puluh lima.',
+                            info: {
+                                deskripsi: 'Nomor urut adalah angka yang diberikan untuk mengidentifikasi posisi atau urutan sesuatu dalam daftar. Nomor urut digunakan dalam berbagai konteks seperti pendaftaran, lomba, dan antrian. Nomor urut membantu mengorganisir dan mengelola banyak item atau orang dengan sistematis.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nomor+Urut',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nomor_4',
+                            teks: 'Nomor seri produk ini terdapat pada bagian belakang.',
+                            info: {
+                                deskripsi: 'Nomor seri adalah identifikasi unik yang diberikan kepada produk manufaktur untuk pelacakan dan garansi. Nomor seri membantu produsen melacak asal-usul produk dan memverifikasi keaslian. Nomor seri juga digunakan untuk layanan purna jual dan penggantian produk yang rusak.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nomor+Seri',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nomor_5',
+                            teks: 'Nomor channel televisi yang saya tonton paling sering adalah empat.',
+                            info: {
+                                deskripsi: 'Nomor channel adalah angka yang diberikan kepada saluran televisi untuk memudahkan pemirsa menemukan program yang diinginkan. Nomor channel berbeda-beda tergantung pada penyedia layanan televisi. Dengan remote control, penonton dapat dengan cepat beralih antar channel menggunakan nomor channel.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nomor+Channel',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        }
+                    ]
+                },
+                {
+                    id: 'negara',
+                    nama: 'NEGARA',
+                    kalimat: [
+                        {
+                            id: 'negara_1',
+                            teks: 'Negara Indonesia memiliki lebih dari tujuh ratus puluh pulau.',
+                            info: {
+                                deskripsi: 'Negara adalah entitas politik yang memiliki pemerintahan, wilayah, penduduk, dan kedaulatan. Indonesia adalah negara kepulauan terbesar di dunia dengan keragaman budaya yang kaya. Negara memiliki sistem pemerintahan dan hukum yang mengatur kehidupan warganya.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Indonesia',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'negara_2',
+                            teks: 'Negara Singapura adalah negara maju dengan ekonomi yang kuat.',
+                            info: {
+                                deskripsi: 'Singapura adalah negara dengan kemajuan teknologi dan ekonomi yang tinggi. Negara ini dikenal dengan sistem pendidikan berkualitas tinggi dan infrastruktur modern. Singapura menjadi pusat perdagangan dan keuangan di kawasan Asia Tenggara.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Singapura',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'negara_3',
+                            teks: 'Negara Jepang terkenal dengan teknologi dan budaya uniknya.',
+                            info: {
+                                deskripsi: 'Jepang adalah negara yang terletak di Asia Timur dengan budaya yang kaya dan teknologi canggih. Negara ini dikenal dengan samurai, anime, dan inovasi teknologi. Jepang memiliki kontribusi besar dalam industri otomotif dan elektronik dunia.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Jepang',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'negara_4',
+                            teks: 'Setiap negara memiliki bendera dan lagu kebangsaan sendiri.',
+                            info: {
+                                deskripsi: 'Bendera dan lagu kebangsaan adalah simbol identitas nasional suatu negara. Bendera mewakili nilai dan sejarah negara, sementara lagu kebangsaan menunjukkan kebanggaan warga negara. Kedua simbol ini sering dihormati dalam upacara resmi dan acara nasional.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Bendera+Negara',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'negara_5',
+                            teks: 'Negara-negara anggota PBB bekerja sama untuk menjaga perdamaian dunia.',
+                            info: {
+                                deskripsi: 'Perserikatan Bangsa-Bangsa (PBB) adalah organisasi internasional yang terdiri dari negara-negara anggota dari seluruh dunia. PBB didirikan dengan tujuan menjaga perdamaian dan keamanan internasional. Kerja sama antar negara dalam PBB penting untuk menyelesaikan konflik dan isu-isu global.',
+                                gambar: 'https://via.placeholder.com/300x200?text=PBB',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        }
+                    ]
+                },
+                {
+                    id: 'nyamuk',
+                    nama: 'NYAMUK',
+                    kalimat: [
+                        {
+                            id: 'nyamuk_1',
+                            teks: 'Nyamuk adalah serangga kecil yang menggigit dan menghisap darah.',
+                            info: {
+                                deskripsi: 'Nyamuk adalah serangga berukuran kecil dari ordo Diptera yang terkenal karena gigitannya yang menyebabkan gatal. Hanya nyamuk betina yang menggigit untuk menghisap darah sebagai sumber nutrisi untuk bertelur. Nyamuk dapat menjadi vektor penyakit berbahaya seperti malaria dan dengue.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nyamuk',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nyamuk_2',
+                            teks: 'Gigitan nyamuk menyebabkan bekas merah dan gatal yang mengganggu.',
+                            info: {
+                                deskripsi: 'Gigitan nyamuk meninggalkan bekas merah yang gatal karena reaksi alergi tubuh terhadap air liur nyamuk. Gatal yang ditimbulkan dapat berlangsung selama beberapa jam hingga beberapa hari. Menggaruk bekas gigitan dapat menyebabkan infeksi dan memperparah gatal.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Bekas+Gigitan',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nyamuk_3',
+                            teks: 'Nyamuk Aedes aegypti adalah pembawa virus demam berdarah.',
+                            info: {
+                                deskripsi: 'Nyamuk Aedes aegypti adalah jenis nyamuk yang dikenal sebagai vektor utama virus demam berdarah dan Zika. Nyamuk ini aktif terutama pada pagi dan sore hari. Pencegahan gigitan nyamuk ini sangat penting untuk mencegah penyebaran penyakit demam berdarah.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Aedes+aegypti',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nyamuk_4',
+                            teks: 'Pembasmi nyamuk harus digunakan dengan hati-hati dan sesuai aturan.',
+                            info: {
+                                deskripsi: 'Pembasmi nyamuk adalah zat kimia yang digunakan untuk membunuh atau mengusir nyamuk. Pembasmi nyamuk tersedia dalam berbagai bentuk seperti semprot, obat nyamuk bakar, dan lotion anti nyamuk. Penggunaan pembasmi nyamuk harus sesuai dengan petunjuk untuk menghindari efek samping kesehatan.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Pembasmi+Nyamuk',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nyamuk_5',
+                            teks: 'Pencegahan nyamuk dapat dilakukan dengan membersihkan genangan air.',
+                            info: {
+                                deskripsi: 'Pencegahan nyamuk merupakan langkah proaktif untuk mengurangi populasi nyamuk. Membersihkan genangan air tempat nyamuk berkembang biak adalah cara paling efektif. Langkah pencegahan lainnya termasuk menggunakan kelambu, menutup tempat penampungan air, dan menjaga kebersihan lingkungan.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Pencegahan',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        }
+                    ]
+                },
+                {
+                    id: 'nanas',
+                    nama: 'NANAS',
+                    kalimat: [
+                        {
+                            id: 'nanas_1',
+                            teks: 'Nanas adalah buah tropis yang manis dan segar.',
+                            info: {
+                                deskripsi: 'Nanas adalah buah dari tanaman Ananas comosus yang memiliki daging buah berwarna kuning dengan rasa manis dan sedikit asam. Buah ini kaya akan vitamin C dan bromelain yang bermanfaat untuk kesehatan. Nanas dapat dimakan langsung atau digunakan dalam berbagai olahan makanan.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nanas',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nanas_2',
+                            teks: 'Jus nanas sangat menyegarkan terutama di hari yang panas.',
+                            info: {
+                                deskripsi: 'Jus nanas dibuat dengan memeras atau memblender daging buah nanas yang segar. Minuman ini memiliki rasa manis alami dan dapat dinikmati dingin atau hangat. Jus nanas tidak hanya segar tetapi juga kaya manfaat kesehatan termasuk meningkatkan pencernaan.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Jus+Nanas',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nanas_3',
+                            teks: 'Indonesia adalah penghasil nanas terbesar di kawasan Asia Tenggara.',
+                            info: {
+                                deskripsi: 'Indonesia merupakan produsen nanas terkemuka di Asia dengan luas lahan pertanian nanas yang luas. Daerah penghasil nanas terbesar di Indonesia adalah Sumatera Utara, Jawa Barat, dan Lampung. Nanas Indonesia dikenal memiliki kualitas yang baik dan diperdagangkan ke berbagai negara.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Perkebunan+Nanas',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nanas_4',
+                            teks: 'Nanas dapat digunakan sebagai bahan dalam berbagai resep masakan.',
+                            info: {
+                                deskripsi: 'Nanas digunakan dalam masakan berbagai budaya sebagai bahan utama atau pelengkap. Makanan populer yang menggunakan nanas termasuk nasi kuning, ayam nanas, dan berbagai hidangan penutup. Enzim bromelain dalam nanas juga digunakan dalam memasak untuk melunakkan daging.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Hidangan+Nanas',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nanas_5',
+                            teks: 'Manfaat nanas untuk kesehatan termasuk meningkatkan imunitas tubuh.',
+                            info: {
+                                deskripsi: 'Nanas mengandung vitamin C, mangan, dan bromelain yang memiliki banyak manfaat kesehatan. Vitamin C membantu meningkatkan sistem imun, sementara bromelain memiliki sifat anti-inflamasi. Konsumsi nanas secara teratur dapat membantu menjaga kesehatan pencernaan dan mengurangi peradangan dalam tubuh.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Manfaat+Nanas',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        }
+                    ]
+                },
+                {
+                    id: 'novel',
+                    nama: 'NOVEL',
+                    kalimat: [
+                        {
+                            id: 'novel_1',
+                            teks: 'Novel adalah karya sastra berbentuk prosa yang bercerita tentang kehidupan manusia.',
+                            info: {
+                                deskripsi: 'Novel adalah bentuk fiksi panjang yang menceritakan kisah dengan karakter kompleks dan alur yang berkembang. Novel dapat membahas berbagai tema seperti cinta, petualangan, misteri, atau sosial. Genre novel sangat beragam termasuk novel romantis, thriller, fantasi, dan realistis.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Novel',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'novel_2',
+                            teks: 'Membaca novel adalah hobi yang menyenangkan dan menambah pengetahuan.',
+                            info: {
+                                deskripsi: 'Membaca novel dapat memberikan hiburan, pengetahuan, dan pengalaman baru melalui cerita yang diceritakan. Novel dapat membawa pembaca ke dunia baru dan membuat mereka merasakan emosi berbeda. Hobi membaca novel juga membantu mengembangkan kreativitas dan imajinasi.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Membaca+Novel',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'novel_3',
+                            teks: 'Novel karya J.K. Rowling tentang Harry Potter sangat terkenal di seluruh dunia.',
+                            info: {
+                                deskripsi: 'Seri novel Harry Potter adalah karya fiksi fantasi yang paling populer di dunia dengan jutaan pembaca. Cerita mengikuti petualangan seorang penyihir muda di sekolah sihir. Novel ini telah diadaptasi menjadi film dan menjadi fenomena budaya global.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Harry+Potter',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'novel_4',
+                            teks: 'Menulis novel memerlukan kreativitas, imajinasi, dan dedikasi yang tinggi.',
+                            info: {
+                                deskripsi: 'Menulis novel adalah proses kreatif yang memerlukan perencanaan, pengembangan karakter, dan penulisan yang teliti. Penulis novel harus memiliki kemampuan storytelling yang baik dan pemahaman mendalam tentang emosi manusia. Proses menulis novel dapat memakan waktu berbulan-bulan atau bahkan bertahun-tahun.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Menulis+Novel',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'novel_5',
+                            teks: 'Perpustakaan memiliki koleksi novel dari berbagai penulis dan negara.',
+                            info: {
+                                deskripsi: 'Perpustakaan adalah tempat penyimpanan dan peminjaman koleksi buku termasuk novel dari berbagai penulis dan negara. Perpustakaan menyediakan akses kepada karya sastra yang kaya dan beragam. Mengunjungi perpustakaan adalah cara terbaik untuk menemukan novel baru dan mengembangkan kecintaan terhadap membaca.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Perpustakaan',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        }
+                    ]
+                },
+                {
+                    id: 'nasihat',
+                    nama: 'NASIHAT',
+                    kalimat: [
+                        {
+                            id: 'nasihat_1',
+                            teks: 'Nasihat dari orang tua adalah warisan berharga yang harus didengarkan.',
+                            info: {
+                                deskripsi: 'Nasihat adalah saran atau petunjuk yang diberikan seseorang berdasarkan pengalaman dan kebijaksanaan mereka. Nasihat dari orang tua biasanya didasarkan pada pengalaman hidup mereka yang panjang. Mendengarkan dan mengikuti nasihat orang tua dapat membantu menghindari kesalahan dan mencapai kesuksesan.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nasihat',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nasihat_2',
+                            teks: 'Guru memberikan nasihat kepada murid untuk meningkatkan prestasi akademik.',
+                            info: {
+                                deskripsi: 'Guru memberikan nasihat kepada siswa tentang cara belajar yang efektif dan mengembangkan diri. Nasihat dari guru penting untuk membimbing siswa ke jalur kesuksesan akademik dan pribadi. Guru yang baik tidak hanya mengajar tetapi juga memberi nasihat tentang kehidupan.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nasihat+Guru',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nasihat_3',
+                            teks: 'Nasihat kesehatan penting untuk menjaga tubuh tetap sehat dan bugar.',
+                            info: {
+                                deskripsi: 'Nasihat kesehatan mencakup panduan tentang pola makan sehat, olahraga teratur, dan istirahat yang cukup. Dokter dan ahli kesehatan memberikan nasihat untuk mencegah penyakit dan menjaga kesehatan optimal. Mengikuti nasihat kesehatan dapat meningkatkan kualitas hidup dan umur panjang.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nasihat+Kesehatan',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nasihat_4',
+                            teks: 'Nasihat finansial membantu seseorang mengelola uang dengan bijak.',
+                            info: {
+                                deskripsi: 'Nasihat finansial adalah panduan tentang bagaimana mengelola keuangan pribadi dan investasi dengan cerdas. Konsultan keuangan memberikan nasihat tentang cara menabung, mengurangi utang, dan berinvestasi. Nasihat finansial yang baik dapat membantu mencapai kebebasan finansial.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nasihat+Finansial',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nasihat_5',
+                            teks: 'Nasihat karir membantu seseorang memilih jalur profesional yang tepat.',
+                            info: {
+                                deskripsi: 'Nasihat karir membantu seseorang mengidentifikasi bakat, minat, dan passion untuk memilih profesi yang sesuai. Konsultan karir memberikan nasihat tentang pelatihan, sertifikasi, dan peluang kerja. Nasihat karir yang tepat dapat membawa kesuksesan dan kepuasan dalam berkarir.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nasihat+Karir',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        }
+                    ]
+                },
+                {
+                    id: 'nihil',
+                    nama: 'NIHIL',
+                    kalimat: [
+                        {
+                            id: 'nihil_1',
+                            teks: 'Nihil berarti tidak ada atau kosong sama sekali.',
+                            info: {
+                                deskripsi: 'Nihil adalah istilah yang berarti tidak ada, kosong, atau tanpa nilai. Dalam filosofi, nihilisme adalah pemikiran yang menolak segala nilai dan prinsip. Dalam hukum, nihil mengacu pada sesuatu yang tidak sah atau tidak memiliki kekuatan hukum.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nihil',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nihil_2',
+                            teks: 'Upaya kami untuk menyelamatkan proyek itu ternyata nihil karena kurangnya dana.',
+                            info: {
+                                deskripsi: 'Dalam konteks ini, nihil berarti usaha atau upaya yang tidak membuahkan hasil. Hal ini menunjukkan bahwa meskipun ada upaya, hasilnya adalah kegagalan atau ketiadaan kesuksesan. Situasi ini sering terjadi dalam berbagai bidang kehidupan seperti bisnis, proyek, atau penelitian.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Upaya+Nihil',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nihil_3',
+                            teks: 'Harapan kami untuk memenangkan kompetisi itu nihil setelah melihat pesaing kami.',
+                            info: {
+                                deskripsi: 'Nihil dalam konteks ini mengungkapkan ketiadaan atau sangat kecilnya kemungkinan untuk mencapai tujuan. Harapan yang nihil menunjukkan pesimisme atau realistis tentang kemungkinan kesuksesan. Meskipun harapan nihil, tetap penting untuk tetap berjuang dan tidak menyerah.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Harapan+Nihil',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nihil_4',
+                            teks: 'Pengetahuan saya tentang topik ini adalah nihil sehingga saya perlu belajar lebih banyak.',
+                            info: {
+                                descripsi: 'Nihil dalam hal pengetahuan berarti tidak memiliki pemahaman atau informasi tentang suatu topik. Mengakui pengetahuan yang nihil adalah langkah pertama menuju pembelajaran. Dengan kesadaran akan ketiadaan pengetahuan, seseorang dapat lebih terbuka untuk belajar dan mengembangkan diri.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Pengetahuan',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nihil_5',
+                            teks: 'Kontribusi mereka terhadap kesuksesan proyek ini adalah nihil.',
+                            info: {
+                                deskripsi: 'Nihil dalam konteks kontribusi berarti tidak ada sumbangan atau peran dalam mencapai hasil. Mengakui kontribusi yang nihil penting untuk mengevaluasi peran setiap anggota tim. Ini dapat menjadi motivasi untuk meningkatkan partisipasi dan kontribusi di masa depan.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Kontribusi',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        }
+                    ]
+                },
+                {
+                    id: 'nota',
+                    nama: 'NOTA',
+                    kalimat: [
+                        {
+                            id: 'nota_1',
+                            teks: 'Nota belanja menunjukkan rincian barang yang dibeli dan harganya.',
+                            info: {
+                                deskripsi: 'Nota atau nota pembelian adalah dokumen yang menunjukkan detail transaksi penjualan termasuk barang, jumlah, harga, dan total pembayaran. Nota penting untuk keperluan administrasi, pajak, dan garansi produk. Pembeli harus menyimpan nota sebagai bukti pembelian.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nota+Belanja',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nota_2',
+                            teks: 'Nota kesepakatan adalah dokumen tertulis yang mencatat persetujuan antara dua pihak.',
+                            info: {
+                                deskripsi: 'Nota kesepakatan adalah catatan resmi atau dokumen yang merinci syarat dan ketentuan yang disepakati oleh dua pihak atau lebih. Nota ini berfungsi sebagai bukti dan referensi untuk memastikan kedua belah pihak memahami kesepakatan. Nota kesepakatan penting dalam transaksi bisnis dan hukum.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nota+Kesepakatan',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nota_3',
+                            teks: 'Nota musik menunjukkan tinggi rendah nada dan durasi dalam suatu melodi.',
+                            info: {
+                                deskripsi: 'Nota musik adalah simbol yang digunakan untuk merepresentasikan nada, ritme, dan tempo dalam musik. Setiap nota memiliki nilai durasi dan posisi pada garis paranada menunjukkan tinggi rendah nada. Sistem notasi musik memungkinkan musisi untuk menulis, membaca, dan memproduksi musik.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nota+Musik',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nota_4',
+                            teks: 'Nota dokter berisi diagnosis dan resep obat untuk pasien.',
+                            info: {
+                                deskripsi: 'Nota dokter adalah catatan medis yang berisi hasil pemeriksaan, diagnosis penyakit, dan resep obat untuk pasien. Nota ini penting untuk catatan kesehatan pasien dan dapat digunakan untuk rujukan ke dokter lain. Pasien harus menyimpan nota dokter untuk referensi kesehatan di masa depan.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nota+Dokter',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'nota_5',
+                            teks: 'Nota bagasi menunjukkan asal dan tujuan pengiriman barang.',
+                            info: {
+                                deskripsi: 'Nota bagasi atau nota pengiriman adalah dokumen yang mencatat detail pengiriman barang termasuk pengirim, penerima, isi barang, dan tanggal pengiriman. Nota ini berfungsi untuk pelacakan dan jaminan bahwa barang sampai ke tujuan dengan aman. Penerima harus menandatangani nota bagasi sebagai bukti penerimaan barang.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Nota+Bagasi',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        }
+                    ]
+                },
+                {
+                    id: 'neraka',
+                    nama: 'NERAKA',
+                    kalimat: [
+                        {
+                            id: 'neraka_1',
+                            teks: 'Dalam agama Islam, neraka adalah tempat penyiksaan bagi mereka yang berdosa.',
+                            info: {
+                                deskripsi: 'Neraka dalam berbagai agama adalah konsep tempat penyiksaan atau hukuman untuk jiwa yang berdosa. Dalam Islam, neraka (Jahannam) adalah tempat yang dipercaya menanti mereka yang tidak beriman dan berbuat dosa. Konsep neraka menjadi motivasi bagi umat beragama untuk menghindari dosa dan berbuat baik.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Neraka',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'neraka_2',
+                            teks: 'Agama Kristen juga memiliki konsep neraka sebagai tempat penghakiman.',
+                            info: {
+                                deskripsi: 'Dalam Kristen, neraka adalah tempat penyiksaan kekal bagi mereka yang menolak keselamatan dalam Yesus Kristus. Konsep neraka dalam Kristen terkait dengan penghakiman di akhir zaman dan keputusan individu. Kepercayaan pada neraka menjadi bagian dari doktrin keselamatan dalam Kristen.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Neraka+Kristen',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'neraka_3',
+                            teks: 'Suasana di tempat kerja terasa seperti neraka karena beban kerja yang berlebihan.',
+                            info: {
+                                deskripsi: 'Dalam penggunaan sehari-hari, neraka dapat merujuk pada situasi yang sangat menyulitkan atau menyakitkan. Pekerjaan yang terlalu berat atau lingkungan kerja yang tidak sehat dapat dideskripsikan sebagai neraka. Ungkapan ini menunjukkan betapa buruknya situasi yang dialami seseorang.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Neraka+Kerja',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'neraka_4',
+                            teks: 'Takut pada neraka membuat seseorang lebih berhati-hati dalam berbuat dosa.',
+                            info: {
+                                deskripsi: 'Rasa takut akan konsekuensi di neraka dapat menjadi motivasi moral untuk berbuat baik dan menghindari dosa. Dalam tradisi agama, rasa takut pada neraka dianggap sehat ketika mendorong introspeksi dan perbaikan diri. Namun, rasa takut berlebihan dapat menjadi negatif dan mengganggu kesehatan mental.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Takut+Neraka',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'neraka_5',
+                            teks: 'Perspektif modern menginterpretasikan neraka sebagai keadaan jiwa, bukan tempat fisik.',
+                            info: {
+                                deskripsi: 'Dalam pemikiran modern dan psikologi agama, neraka dapat diinterpretasikan sebagai keadaan mental atau spiritual seseorang. Neraka dapat dipahami sebagai konsekuensi psikologis dari perbuatan buruk atau kejauhan dari nilai-nilai spiritual. Interpretasi ini lebih fokus pada pertumbuhan spiritual daripada hukuman fisik.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Neraka+Modern',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        }
+                    ]
+                },
+                {
+                    id: 'noda',
+                    nama: 'NODA',
+                    kalimat: [
+                        {
+                            id: 'noda_1',
+                            teks: 'Ada noda hitam di kemeja putih saya yang sulit dibersihkan.',
+                            info: {
+                                deskripsi: 'Noda adalah tanda atau bekas kotor yang tertinggal pada permukaan benda atau pakaian. Noda dapat disebabkan oleh berbagai hal seperti tinta, minyak, atau debu. Membersihkan noda memerlukan teknik khusus tergantung jenis noda dan bahan barang yang terkena noda.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Noda',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'noda_2',
+                            teks: 'Noda darah pada kain putih dapat dihilangkan dengan air dingin.',
+                            info: {
+                                deskripsi: 'Noda darah adalah jenis noda yang umum terjadi dan memerlukan penanganan cepat untuk hasil terbaik. Menggunakan air dingin, sabun, dan teknik lembut dapat membantu menghilangkan noda darah. Semakin cepat ditangani, semakin besar kemungkinan noda dapat hilang sepenuhnya.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Noda+Darah',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'noda_3',
+                            teks: 'Skandal keuangan ini meninggalkan noda pada reputasi perusahaan.',
+                            info: {
+                                deskripsi: 'Dalam konteks kiasan, noda merujuk pada hal negatif yang merusak reputasi atau citra seseorang atau organisasi. Noda reputasi dapat disebabkan oleh skandal, kesalahan manajemen, atau perilaku tidak etis. Menghilangkan noda reputasi memerlukan waktu, transparansi, dan perbaikan nyata.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Noda+Reputasi',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'noda_4',
+                            teks: 'Noda minyak pada lantai dapat dicuci dengan deterjen khusus.',
+                            info: {
+                                deskripsi: 'Noda minyak adalah jenis noda yang sulit dihilangkan karena sifat minyak yang tidak larut dalam air biasa. Menggunakan deterjen, bensin, atau bahan pembersih khusus dapat membantu menghilangkan noda minyak. Untuk hasil terbaik, noda minyak sebaiknya ditangani segera sebelum mengering.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Noda+Minyak',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        },
+                        {
+                            id: 'noda_5',
+                            teks: 'Kehidupannya penuh dengan noda kesalahan dan penyesalan yang mendalam.',
+                            info: {
+                                deskripsi: 'Noda kesalahan dalam konteks moral merujuk pada hal-hal buruk yang pernah dilakukan seseorang. Meskipun noda kesalahan tidak dapat sepenuhnya dihilangkan, seseorang dapat melakukan perbaikan dan minta maaf. Proses penyembuhan dari noda kesalahan memerlukan pertobatan, tanggung jawab, dan usaha untuk menjadi lebih baik.',
+                                gambar: 'https://via.placeholder.com/300x200?text=Noda+Kesalahan',
+                                video: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                            }
+                        }
+                    ]
+                }
+            ]
+        };
+    </script>
+
+</body>
+</html>
