@@ -1,0 +1,49 @@
+// CONTOH FILE INI: Untuk test media lokal, replace item pertama di database.js
+
+// Sebelum diisi media, jalankan aplikasi untuk test tanpa media
+// Aplikasi akan show graceful fallback jika media tidak ada
+
+// PERSIAPAN TEST MEDIA LOKAL:
+
+// 1. Siapkan 1 file gambar: media/images/aku_1.jpg
+// 2. Siapkan 1 file video: media/videos/aku_1.mp4 (atau .webm)
+// 3. Siapkan 1 file audio: media/audio/aku_1.mp3
+
+// Contoh item dengan media lokal:
+{
+    id: 'aku',
+    nama: 'AKU',
+    kalimat: [
+        {
+            id: 'aku_1',
+            teks: 'Aku adalah seorang siswa yang rajin belajar.',
+            info: {
+                deskripsi: 'Aku adalah kata ganti orang pertama tunggal yang digunakan untuk merujuk diri sendiri dalam percakapan sehari-hari. Kata ini memiliki makna yang sama dengan "saya" tetapi lebih informal dan sering digunakan dalam bahasa lisan. Penggunaan "aku" menciptakan keintiman dalam komunikasi.',
+                // LOCAL MEDIA (uncomment jika sudah siapkan file)
+                gambar: './media/images/aku_1.jpg',
+                video: './media/videos/aku_1.mp4',
+                audio: './media/audio/aku_1.mp3',
+                
+                // FALLBACK (jika file tidak ada, uncomment ini)
+                // gambar: 'https://via.placeholder.com/300x200?text=Aku',
+                // video: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+                // audio: '',  // YouTube tidak support audio, bisa kosong
+            }
+        },
+        // ... kalimat 2-5
+    ]
+}
+
+// CHECKLIST SEBELUM UNCOMMENT PATH LOKAL:
+
+// [ ] File media sudah ada di folder yang benar
+// [ ] Nama file sesuai konvensi: [kata_dasar]_[nomor].[ext]
+// [ ] Path benar: './media/images/aku_1.jpg' (dot-slash!)
+// [ ] Tidak ada typo atau spasi dalam nama file
+// [ ] Format video: MP4 (h.264) atau WebM (VP8)
+// [ ] Format audio: MP3 atau WAV
+// [ ] Browser bisa play media (test di element > media)
+
+// TEST COMMAND DI BROWSER CONSOLE:
+// fetch('./media/images/aku_1.jpg').then(r => console.log(r.status))
+// Jika 200 = OK, 404 = NOT FOUND
